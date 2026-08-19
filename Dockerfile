@@ -1,4 +1,4 @@
-FROM php:8.5.9-alpine
+FROM php:8.5.9-alpine3.24
 
 ENV TERM=xterm
 RUN apk update && apk add --no-cache \
