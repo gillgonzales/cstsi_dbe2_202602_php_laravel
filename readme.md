@@ -13,6 +13,8 @@ Este repositório contém projetos de exemplo desenvolvidos durante as aulas da 
 
 No **Tópico 01** desenvolvemos um projeto web em PHP puro, moderno, de acordo com o paradigma da Orientação a Objetos e com uma arquitetura baseada em MVC (Model-View-Controller). Utiliza Docker e Docker Compose para conteinerização e gerenciamento de serviços, facilitando o desenvolvimento e a padronização do ambiente.
 
+[Link Material](https://docs.google.com/presentation/d/e/2PACX-1vS3EH4HhxQAPW91I5QwX5wySod-I7CGEZbA9vP86912O62n5_K-g8rcRe7nr7WrF8OvoLaYb6rn8_9G/pub?start=false&loop=false&delayms=3000&slide=id.p1)
+
 ---
 
 ## 📝 Variáveis de Ambiente
