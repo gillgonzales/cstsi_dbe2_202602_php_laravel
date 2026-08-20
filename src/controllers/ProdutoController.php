@@ -9,6 +9,7 @@ class ProdutoController extends Controller{
 
     public function __construct(){
         try{
+            parent::__construct();
             $this->model = new ProdutoModel();
         }catch(Exception $error){
             throw $error;
@@ -21,15 +22,17 @@ class ProdutoController extends Controller{
         // header("Content-Type:application/json");
         // header("Access-Control-Allow-Origin:*");//CORS
         //MVC -> Model
-        echo json_encode($this->model->read());
+        // echo json_encode($this->model->read());
+        $produtos = $this->model->read();
         //MVC -> View
+        $this->view->load('produtos/index',['produtos'=>$produtos]);
     }
 
     public function show(int $id){
-         echo "<br>Mostrar os dados do produto de id:$id";
-         echo "<pre>";
+        //  echo "<br>Mostrar os dados do produto de id:$id";
+        //  echo "<pre>";
          try{
-            print_r($this->model->read($id));
+             $this->view->load('produtos/show',['produto'=>$this->model->read($id)]);
          }catch(Exception $error){
             echo "Produto de id $id não encontrado";
          } 
