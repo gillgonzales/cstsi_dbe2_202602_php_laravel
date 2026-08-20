@@ -2,6 +2,7 @@
 
 namespace CSTSI\Dbe2\controllers;
 
+use CSTSI\Dbe2\models\Produto;
 use CSTSI\Dbe2\models\ProdutoModel;
 use Exception;
 
@@ -39,11 +40,20 @@ class ProdutoController extends Controller{
     }
 
     public function create(){
-        echo "Mostrar um formulário";
+        // echo "Mostrar um formulário";
+         $this->view->load('produtos/create');
     }
 
     public function store(){
-        echo "Recebe os dados do formulário e guarda no banco";
+        $produto = new Produto( null,
+            $_POST['nome'],
+            $_POST['descricao'],
+            $_POST['qtd_estoque'],
+            $_POST['preco'],
+        );
+        if($this->model->create($produto))
+            header('Location:/produtos');
+        else echo "Erro ao criar produto!!!";
     }
 
     public function edit(int $id){
