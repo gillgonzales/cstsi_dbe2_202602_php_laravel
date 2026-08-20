@@ -49,7 +49,8 @@ class Route
 			if (!$class) header('HTTP/1.0 404 Not Found');
 		} catch (Exception $error) {
 			// echo "Erro banco!!";
-			header('HTTP/1.0 503 Servico Indisponivel!!!');
+			var_dump($error);
+			// header('HTTP/1.0 503 Servico Indisponivel!!!');
 		}
 	}
 
