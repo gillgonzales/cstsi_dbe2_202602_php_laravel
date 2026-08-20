@@ -18,9 +18,9 @@ class Connection
                 self::readEnv();
                 $dsn = self::getDsn();
                 self::$instance = new PDO($dsn, self::$db->user, self::$db->pass);
-                if(!Connection::isTablesInstalled()){
-                    self::installDB();
-                }
+                // if(!Connection::isTablesInstalled()){
+                //     self::installDB();
+                // }
             } catch (\PDOException $error) {
                 // var_dump(
                 //     "CONNECTION",
