@@ -51,6 +51,42 @@ services:
             - app_net
         depends_on:
             - app_db
+  pgsql:
+        image: 'postgres:15'
+        ports:
+            - '${FORWARD_PG_PORT:-5433}:5432'
+        environment:
+            POSTGRES_DB: '${DB_NAME}'
+            POSTGRES_USER: '${DB_USER}'
+            POSTGRES_PASSWORD: '${DB_PASS}'
+            POSTGRES_HOST_AUTH_METHOD: 'trust'
+        volumes:
+            - 'pgsql-data:/var/lib/postgresql/data'
+            # - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+        networks:
+            - app_net
+        healthcheck:
+            test:
+                - CMD
+                - pg_isready
+                - '-q'
+                - '-d'
+                - '${DB_NAME}'
+                - '-U'
+                - '${DB_USER}'
+            retries: 3
+            timeout: 5s
+  pgadmin:
+        image: 'dpage/pgadmin4:latest'
+        ports:
+          - '${FORWARD_DBADMIN_PORT:-8090}:80'
+        environment:
+            PGADMIN_DEFAULT_EMAIL: 'admin@pgadmin.com'
+            PGADMIN_DEFAULT_PASSWORD: 'admin'
+        networks:
+            - app_net
+        depends_on:
+            - pgsql
 networks:
   app_net:
     ipam:
@@ -60,3 +96,5 @@ networks:
 volumes:
   vol_db:
     driver: local
+  pgsql-data:
+        driver: local
