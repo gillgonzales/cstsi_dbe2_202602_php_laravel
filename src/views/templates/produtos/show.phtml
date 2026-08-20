@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto</title>
+</head>
+<body>
+	<h2>Produto: <?php echo $produto['nome'];?></h2>
+    <ul>
+			<li>
+				<a href="/produtos/show/<?php echo $produto['id_prod']?>">
+					<?php echo $produto['id_prod'] ?>
+				</a>
+				| <?php echo $produto['nome'] ?> 
+				| R$ <?php echo $produto['preco'] ?>
+                <p><?php echo $produto['descricao']?></p>
+			</li>
+			<div>
+				<a href="/produtos/edit/<?php echo $produto['id_prod']?>">
+					Editar
+				</a> 
+				| <a href="/produtos/delete/<?php echo $produto['id_prod']?>">
+					Remover
+				</a>
+			</div>
+			<hr>
+            <a href="/produtos">Voltar</a>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+</head>
+<body>
+	<h2>Lista de Produtos</h2>
+	<a href="/produtos/create">&plus; Cadastrar Novo Produto</a>
+    <ul>
+		<?php foreach ($produtos as $produto): ?>
+			<li>
+				<a href="/produtos/show/<?php echo $produto['id_prod']?>">
+					<?php echo $produto['id_prod'] ?>
+				</a>
+				| <?php echo $produto['nome'] ?> 
+				| R$ <?php echo $produto['preco'] ?>
+				<div style='display:inline'>
+					| <a href="/produtos/edit/<?php echo $produto['id_prod']?>">
+						Editar
+					</a> 
+					| <a href="/produtos/delete/<?php echo $produto['id_prod']?>">
+						Remover
+					</a>
+				</div>
+			</li>
+		<?php endforeach ?>
+	</ul>
+</body>
+</html>
