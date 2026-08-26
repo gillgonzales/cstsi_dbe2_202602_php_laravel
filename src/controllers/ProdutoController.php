@@ -18,14 +18,7 @@ class ProdutoController extends Controller{
     }
 
     public function index(){
-        // echo "<br>Listar Produtos<pre>";
-        // // print_r($this->model->read());
-        // header("Content-Type:application/json");
-        // header("Access-Control-Allow-Origin:*");//CORS
-        //MVC -> Model
-        // echo json_encode($this->model->read());
         $produtos = $this->model->read();
-        //MVC -> View
         $this->view->load('produtos/index',['produtos'=>$produtos]);
     }
 
@@ -51,6 +44,8 @@ class ProdutoController extends Controller{
             $_POST['qtd_estoque'],
             $_POST['preco'],
         );
+        // echo $produto->nome."<pre>";
+        // var_dump($produto);die;
         if($this->model->create($produto))
             header('Location:/produtos');
         else echo "Erro ao criar produto!!!";
