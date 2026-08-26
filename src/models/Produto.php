@@ -5,7 +5,11 @@ namespace CSTSI\Dbe2\models;
 class Produto
 {
 	private ?int $id_prod;
-	private string $nome;
+	private string $nome{
+		get {
+			return strtoupper($this->nome);
+		}
+	}
 	private string $descricao;
 	private int $qtd_estoque;
 	private float $preco;
