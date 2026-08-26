@@ -46,17 +46,40 @@ class ProdutoController extends Controller{
         );
         // echo $produto->nome."<pre>";
         // var_dump($produto);die;
+        
+        if(isset($_POST['importado']))
+            $produto->setImportado(true);
+
         if($this->model->create($produto))
             header('Location:/produtos');
         else echo "Erro ao criar produto!!!";
     }
 
     public function edit(int $id){
-        echo "Mostrar o formulário de edição com os dados do produto de ID: $id!!";
+        // echo "Mostrar o formulário de edição com os dados do produto de ID: $id!!";
+         try{
+             $produto = $this->model->read($id);
+             $this->view->load('produtos/edit',['produto'=>$produto]);
+         }catch(Exception $error){
+            echo "Produto de id $id não encontrado";
+         } 
     }
 
     public function update(int $id){
-        echo "Recebe dados e atualiza no banco o produto de ID: $id";
+        $produto = new Produto( $id,
+            $_POST['nome'],
+            $_POST['descricao'],
+            $_POST['qtd_estoque'],
+            $_POST['preco'],
+        );
+        
+        if(isset($_POST['importado']))
+            $produto->setImportado(true);
+        
+        if($this->model->update($produto))
+            header('Location:/produtos');
+        else echo "Erro ao atualizar o produto!!!";
+
     }
 
     public function delete(int $id){
