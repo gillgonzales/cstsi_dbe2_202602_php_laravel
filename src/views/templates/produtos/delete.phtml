@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto</title>
+	 <style>
+        :root { font-family: system-ui, sans-serif; color: #17212b; background: #eef3f6; }
+        body { max-width: 900px; margin: 0 auto; padding: 3rem 1rem; }
+        h1 { margin-bottom: .35rem; }
+        .subtitle { color: #52606d; margin-top: 0; }
+        form, table, ul { background: #fff; border: 1px solid #d8e0e6; border-radius: 8px; }
+        form { display: flex; gap: .75rem; padding: 1rem; margin: 2rem 0; }
+        input { flex: 1; min-width: 0; padding: .7rem; border: 1px solid #aab7c4; border-radius: 4px; font: inherit; }
+        button { padding: .7rem 1rem; border: 0; border-radius: 4px; background: #006d77; color: #fff; font: inherit; cursor: pointer; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; }
+        th, td { padding: .85rem 1rem; text-align: left; border-bottom: 1px solid #e5eaee; }
+        th { background: #173f5f; color: #fff; }
+        tr:last-child td { border-bottom: 0; }
+        .actions { display: flex; gap: .5rem; }
+        .delete { background: #b42318; }
+        .empty { padding: 1.5rem; color: #52606d; }
+        @media (max-width: 560px) { form { flex-direction: column; } .actions { flex-direction: column; } }
+    </style>
+</head>
+<body>
+	<h2>Produto: <?php echo $produto['nome'];?></h2>
+    <ul>
+			<li>
+				<a href="/produtos/show/<?php echo $produto['id_prod']?>">
+					<?php echo $produto['id_prod'] ?>
+				</a>
+				| <?php echo $produto['nome'] ?> 
+				| R$ <?php echo $produto['preco'] ?>
+                <p><?php echo $produto['descricao']?></p>
+			</li>
+			<div>
+                <h1>Comfirma a remoção deste produto?</h1>
+                <form action="/produtos/remove" method="post">
+                    <input type="hidden" name="id" value="<?php echo $produto['id_prod']?>">
+                    <button>Sim, Deletar!!</button>
+                </form>
+                 <a href="/produtos"><button>Cancelar</button></a>
+			</div>
+			<hr>
+            <a href="/produtos">Voltar</a>
+	</ul>
+</body>
+</html>
