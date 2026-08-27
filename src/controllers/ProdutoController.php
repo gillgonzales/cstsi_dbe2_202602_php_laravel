@@ -70,7 +70,7 @@ class ProdutoController extends Controller{
             $_POST['nome'],
             $_POST['descricao'],
             $_POST['qtd_estoque'],
-            $_POST['preco'],
+            $_POST['preco']
         );
         
         if(isset($_POST['importado']))
