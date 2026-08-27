@@ -83,11 +83,22 @@ class ProdutoController extends Controller{
     }
 
     public function delete(int $id){
-        echo "Mostrar um formulário de remoção com os dados do produto de ID:$id";
+         try{
+             $this->view->load('produtos/delete',['produto'=>$this->model->read($id)]);
+         }catch(Exception $error){
+            echo "Produto de id $id não encontrado";
+         } 
     }
 
     public function remove(){
-        echo "Receber a comnfirmação de remoção e remover do banco";
+        try{
+            if(!isset($_POST['id']))
+                throw new Exception("Não foi enviado o identificador!!");
+            $this->model->delete($_POST['id']);
+            header('Location:/produtos');
+        }catch(Exception $error){
+            echo "Erro ao remover produto de id: $_POST[id]";
+        }
     }
     
 }
