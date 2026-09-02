@@ -49,6 +49,17 @@ services:
                 - '--innodb_initialized'
             retries: 3
             timeout: 5s
+
+    phpmyadmin:
+            image: 'phpmyadmin/phpmyadmin:latest'
+            ports:
+            - '8091:80'
+            environment:
+                PMA_HOST: 'mariadb'
+            networks:
+                - sail
+            depends_on:
+                - mariadb
 networks:
     sail:
         driver: bridge
