@@ -1,5 +1,5 @@
 <?php
-
+// echo __DIR__;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
