@@ -21,18 +21,18 @@
         </thead>
         <tbody>
             @foreach($produtos as $produto)
-            <tr>
-                <td>{{$produto->id}}</td>
-                <td>{{$produto->nome}}</td>
-                <td>{{$produto->qtd_estoque}}</td>
-                <td>{{$produto->preco}}</td>
-                <td>{{($produto->importado)?'Sim':'Não'}}</td>
-            </tr>
+                <tr>
+                    <td>{{$produto->id}}</td>
+                    <td>{{$produto->nome}}</td>
+                    <td>{{$produto->qtd_estoque}}</td>
+                    <td>{{$produto->preco}}</td>
+                    <td>{{($produto->importado)?'Sim':'Não'}}</td>
+                </tr>
             @endforeach
         </tbody>
     </table>
     @else
-    <p>Produtos não encontrados! </p>
+     <p>Produtos não encontrados! </p>
     @endif
 </body>
 </html>
