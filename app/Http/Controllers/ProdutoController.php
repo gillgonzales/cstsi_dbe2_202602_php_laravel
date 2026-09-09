@@ -28,4 +28,21 @@ class ProdutoController extends Controller
             dd($error->getMessage());
         }
     }
+
+    public function create()
+    {
+        return view('produtos.create');
+    }
+
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        $novoProduto = $request->all();
+        $novoProduto['importado'] = $request->has('importado');
+        // dd($novoProduto);
+        if(Produto::create($novoProduto)){//fillable configurado
+            return redirect('/produtos');
+        }
+       dd("Erro ao criar produto!");
+    }
 }
