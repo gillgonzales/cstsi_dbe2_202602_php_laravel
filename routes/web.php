@@ -13,4 +13,5 @@ Route::get('/', function () {
 // });
 
 Route::get('/ola',[HomeController::class,'index']);
-Route::get('/produtos',[ProdutoController::class,'index']);
+Route::get('/produtos',[ProdutoController::class,'index'])->name('produtos');
+Route::get('/produtos/{id}',[ProdutoController::class,'show'])->name('produto.show');
