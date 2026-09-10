@@ -70,4 +70,14 @@ class ProdutoController extends Controller
         }
         dd("Erro ao atualizar produto!");
     }
+
+    public function delete(int $id) {
+
+        try {
+            Produto::destroy($id);
+            return redirect('/produtos');
+        } catch (Exception $error) {
+            dd($error->getMessage());
+        }
+    }
 }
