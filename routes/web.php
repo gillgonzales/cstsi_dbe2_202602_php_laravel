@@ -19,3 +19,4 @@ Route::get('/produto',[ProdutoController::class,'create']);
 Route::post('/produto',[ProdutoController::class,'store']);
 Route::get('/produtos/{id}/edit',[ProdutoController::class,'edit'])->name('produto.edit');
 Route::post('/produtos/{id}/update',[ProdutoController::class,'update'])->name('produto.update');
+Route::get('/produtos/{id}/delete',[ProdutoController::class,'delete'])->name('produto.remove');
