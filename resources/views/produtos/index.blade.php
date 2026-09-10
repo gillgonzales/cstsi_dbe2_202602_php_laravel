@@ -43,6 +43,10 @@
                                 {{-- <a href={{"/produtos/$produto->id"}} target="_blank"> --}}
                                 Editar
                             </a>
+                            <a href={{ route('produto.remove', $produto->id) }} target="_blank">
+                                {{-- <a href={{"/produtos/$produto->id"}} target="_blank"> --}}
+                                Remover
+                            </a>
                         </td>
                     </tr>
                 @endforeach
