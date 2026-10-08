@@ -50,6 +50,17 @@
                         </td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td colspan="2">{{$produtos->count()}} resultados de {{$produtos->total()}}</td>
+                    <td>
+                        <a href="{{$produtos->previousPageUrl()}}"><< </a>
+                        @foreach ($produtos->getUrlRange(1,$produtos->lastPage()) as $pagina=>$url)
+                            <a href="{{$url}}">{{$pagina}}</a>
+                        @endforeach
+                        <a href="{{$produtos->nextPageUrl() }}">>> </a>
+                    </td>
+                    <td colspan="2">Página {{$produtos->currentPage()}} de {{$produtos->lastPage()}}</td>
+                </tr>
             </tbody>
         </table>
     @else
