@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\View;
 
 class ProdutoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $produtos = Produto::paginate(perPage:3);
-        // dd($produtos);
-        return response()->json($produtos);
-        // $produtos = Produto::all();
-        // dd($produtos);
-        // return response()->json(["data"=>$produtos]);//JSON
+        $perPage = 5;
+        if($request->has('perPage'))
+            $perPage = $request->perPage;
+        $produtos = Produto::paginate(perPage: $perPage,page:$request->page)
+            ->appends(['perPage'=>$request->perPage]);
+        $produtos;
         return view('produtos.index', ["produtos" => $produtos]);
         // return View::make('produtos.index',["produtos"=>$produtos]);
     }
