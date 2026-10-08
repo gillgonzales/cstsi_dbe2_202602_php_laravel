@@ -11,7 +11,10 @@ class ProdutoController extends Controller
 {
     public function index()
     {
-        $produtos = Produto::all();
+        $produtos = Produto::paginate(perPage:3);
+        // dd($produtos);
+        return response()->json($produtos);
+        // $produtos = Produto::all();
         // dd($produtos);
         // return response()->json(["data"=>$produtos]);//JSON
         return view('produtos.index', ["produtos" => $produtos]);
