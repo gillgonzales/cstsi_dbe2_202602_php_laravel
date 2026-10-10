@@ -30,8 +30,7 @@
                 @foreach ($produtos as $produto)
                     <tr>
                         <td>
-                            <a href={{ route('produto.show', $produto->id) }} target="_blank">
-                                {{-- <a href={{"/produtos/$produto->id"}} target="_blank"> --}}
+                            <a href={{ route('produto.show', $produto->id) }}>
                                 {{ $produto->id }}
                             </a>
                         </td>
