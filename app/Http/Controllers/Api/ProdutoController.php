@@ -38,6 +38,7 @@ class ProdutoController extends Controller
                 'importado' => "nullable | boolean"
 
             ]);
+
             $produto = $request->all();
             $produto['importado'] = $request->has('importado');
 
@@ -47,7 +48,7 @@ class ProdutoController extends Controller
             ], 201);
         } catch (\Exception $error) {
             $httpStatus = 500;
-            if ($error instanceof ValidationException) $httpStatus = 422;
+            if ($error instanceof ValidationException) throw $error;
             return response()->json(
                 [
                     "error" => true,
