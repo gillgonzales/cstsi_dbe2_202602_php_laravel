@@ -19,6 +19,6 @@
     @else
         <p>Produto não encontrado ! </p>
     @endif
-    <a href="{{route('produtos')}}">&#9664;Voltar</a>
+    <a href="{{route('produto.index')}}">&#9664;Voltar</a>
 </body>
 </html>

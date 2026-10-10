@@ -40,12 +40,10 @@
                         <td>{{ $produto->preco }}</td>
                         <td>{{ $produto->importado ? 'Sim' : 'Não' }}</td>
                         <td>
-                            <a href={{ route('produto.edit', $produto->id) }} target="_blank">
-                                {{-- <a href={{"/produtos/$produto->id"}} target="_blank"> --}}
+                            <a href={{ route('produto.edit', $produto->id) }} >
                                 Editar
                             </a>
-                            <a href={{ route('produto.remove', $produto->id) }} target="_blank">
-                                {{-- <a href={{"/produtos/$produto->id"}} target="_blank"> --}}
+                            <a href={{ route('produto.remove', $produto->id) }}>
                                 Remover
                             </a>
                         </td>
