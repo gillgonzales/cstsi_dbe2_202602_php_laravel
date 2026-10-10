@@ -28,6 +28,14 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+                'nome' => "required",
+                'descricao' => "required",
+                'qtd_estoque' => "required | integer",
+                'preco' => "required | numeric",
+                'importado' => "nullable"
+
+            ]);
         $produto = $request->all();
         $produto['importado'] = $request->has('importado');
         if(Produto::create($produto))
