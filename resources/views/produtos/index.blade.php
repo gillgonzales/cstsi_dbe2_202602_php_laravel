@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Lista de Produtos</title>
 </head>
 
@@ -53,17 +54,7 @@
                 <tr>
                     <td colspan="2">{{$produtos->count()}} resultados de {{$produtos->total()}}</td>
                     <td>
-                        <a href="{{$produtos->url(1)}}"><<</a>
-                        <a href="{{$produtos->previousPageUrl()}}">< </a>
-                        @foreach ($produtos->getUrlRange(1,$produtos->lastPage()) as $pagina=>$url)
-                            @if($pagina === $produtos->currentPage())
-                                <b>[ {{$pagina}} ]</b>
-                            @else
-                                <a href="{{$url}}">{{$pagina}}</a>
-                            @endif
-                        @endforeach
-                        <a href="{{$produtos->nextPageUrl() }}"> > </a>
-                        <a href="{{$produtos->url($produtos->lastPage()) }}"> >> </a>
+                        {{$produtos->links()}}
                     </td>
                     <td colspan="2">Página {{$produtos->currentPage()}} de {{$produtos->lastPage()}}</td>
                 </tr>
