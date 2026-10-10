@@ -46,16 +46,22 @@ class ProdutoController extends Controller
                 "data" =>  Produto::create($produto),
                 "message" => 'Produto criado !!!'
             ], 201);
+        } catch (ValidationException $error) {
+            throw $error;
         } catch (\Exception $error) {
             $httpStatus = 500;
-            if ($error instanceof ValidationException) throw $error;
-            return response()->json(
-                [
+            $message = "Não foi possível criar o Produto!!! Tente mais tarde.";
+            $response = [
                     "error" => true,
-                    "message" => $error->getMessage()
-                ],
-                $httpStatus
-            );
+                    "message" => $message
+            ];
+            if (env("APP_DEBUG"))
+                $response = [
+                    ...$response,
+                    "exception" => $error->getMessage(),
+                    "trace" => $error->getTrace()
+                ];
+            return  response()->json($response, $httpStatus);
         }
     }
 
