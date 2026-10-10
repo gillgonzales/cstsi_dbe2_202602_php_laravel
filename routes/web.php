@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ Route::controller(ProdutoController::class)->group(function () {
         Route::get('/{id}', 'show')->name("produto.show");
     });
 
-    Route::middleware('auth')->group(function () {
+    // Route::middleware('auth')->group(function () {
         Route::prefix('/produto')->group(function () {
             Route::get('/', 'create')->name("produto.create");
             Route::post('/', 'store')->name("produto.store");
@@ -28,9 +29,13 @@ Route::controller(ProdutoController::class)->group(function () {
             Route::post('/{id}/update', 'update')->name("produto.update");
             Route::get('{id}/delete', [ProdutoController::class, 'delete'])->name('produto.remove');
         });
-    });
+    // });
 });
 
-Route::get('/login', function (){
-    return response("Não autorizado", 401);
-})->name('login');
+// Route::get('/login', function (){
+//     return response("Não autorizado", 401);
+// })->name('login');
+
+Route::resource('fornecedores',FornecedorController::class)->parameters(
+    ['fornecedores'=>'fornecedor']
+);
