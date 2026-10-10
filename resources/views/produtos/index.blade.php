@@ -57,7 +57,7 @@
                         <a href="{{$produtos->previousPageUrl()}}">< </a>
                         @foreach ($produtos->getUrlRange(1,$produtos->lastPage()) as $pagina=>$url)
                             @if($pagina === $produtos->currentPage())
-                                <b>[<a href="{{$url}}">{{$pagina}}</a>]</b>
+                                <b>[ {{$pagina}} ]</b>
                             @else
                                 <a href="{{$url}}">{{$pagina}}</a>
                             @endif
