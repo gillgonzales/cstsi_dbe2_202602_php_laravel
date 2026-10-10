@@ -12,9 +12,14 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new ProdutoResourceCollection(Produto::all());
+        $perPage = 5;
+        if ($request->has('perPage'))
+            $perPage = $request->perPage;
+        $produtos = Produto::paginate(perPage: $perPage, page: $request->page)
+            ->appends(['perPage' => $request->perPage]);
+        return new ProdutoResourceCollection($produtos);
     }
 
     /**
