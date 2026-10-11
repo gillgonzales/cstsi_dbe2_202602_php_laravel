@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Controller;
 use App\Http\Requests\ProdutoStoreRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Http\Resources\ProdutoResourceCollection;
@@ -34,19 +34,7 @@ class ProdutoController extends Controller
         try {
             return new ProdutoStoredResource(Produto::create($request->validated()));
         } catch (\Exception $error) {
-            $httpStatus = 500;
-            $message = "Não foi possível criar o Produto!!! Tente mais tarde.";
-            $response = [
-                "error" => true,
-                "message" => $message
-            ];
-            if (env("APP_DEBUG"))
-                $response = [
-                    ...$response,
-                    "exception" => $error->getMessage(),
-                    "trace" => $error->getTrace()
-                ];
-            return  response()->json($response, $httpStatus);
+             return $this->errorHandler("Não foi possível criar o Produto!!! Tente mais tarde.",$error);
         }
     }
 
