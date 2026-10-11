@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\ExceptionJsonResponse;
 use Exception;
 
 class Controller
 {
     protected function errorHandler(string $message, Exception $error)
     {
-        return new Exception($message, previous:$error);
+        throw new ExceptionJsonResponse($message,previous:$error);
     }
 }
