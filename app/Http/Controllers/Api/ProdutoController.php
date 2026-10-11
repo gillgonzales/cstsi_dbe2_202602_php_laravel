@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\Controller;
 use App\Http\Requests\ProdutoStoreRequest;
+use App\Http\Requests\ProdutoUpdateRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Http\Resources\ProdutoResourceCollection;
 use App\Http\Resources\ProdutoStoredResource;
+use App\Http\Resources\ProdutoUpdatedResource;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -49,9 +51,14 @@ class ProdutoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produto $produto)
+    public function update(ProdutoUpdateRequest $request, Produto $produto)
     {
-        //
+        try {
+            $produto->update($request->validated());
+            return new ProdutoUpdatedResource($produto);
+        } catch (\Exception $error) {
+            return $this->errorHandler("Não foi possível atualizar o Produto!!! Tente mais tarde.", $error);
+        }
     }
 
     /**
