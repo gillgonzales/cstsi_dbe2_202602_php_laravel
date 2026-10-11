@@ -42,18 +42,18 @@ class ProdutoController extends Controller
             $produto = $request->all();
             $produto['importado'] = $request->has('importado');
 
-            return response()->json([
-                "data" =>  Produto::create($produto),
-                "message" => 'Produto criado !!!'
-            ], 201);
+            return new ProdutoResource(Produto::create($produto))
+                ->additional(["message" => 'Produto criado com sucesso!!'])
+                ->response()
+                ->setStatusCode(201, "Produto Criado.");
         } catch (ValidationException $error) {
             throw $error;
         } catch (\Exception $error) {
             $httpStatus = 500;
             $message = "Não foi possível criar o Produto!!! Tente mais tarde.";
             $response = [
-                    "error" => true,
-                    "message" => $message
+                "error" => true,
+                "message" => $message
             ];
             if (env("APP_DEBUG"))
                 $response = [
