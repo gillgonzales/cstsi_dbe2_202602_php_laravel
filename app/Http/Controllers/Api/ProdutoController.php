@@ -66,6 +66,12 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        //
+        try{
+            $produto->delete();
+            return new ProdutoResource($produto)
+                    ->additional(['message'=>"Produto removido!!!"]);
+        }catch (\Exception $error) {
+            return $this->errorHandler("Não foi possível remover o Produto!!! Tente mais tarde.",$error);
+        }
     }
 }
