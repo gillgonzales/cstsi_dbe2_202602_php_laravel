@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fornecedor;
 use App\Models\Produto;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Produto::factory(10)->create();
+        Fornecedor::factory(10)->create();
     }
 }
