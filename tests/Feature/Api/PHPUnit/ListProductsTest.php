@@ -35,11 +35,13 @@ class ListProductsTest extends TestCase
 
         $response->assertStatus(200);   //ASSERT
         $response->assertJsonIsObject();   //ASSERT
-        $response->assertJsonStructure(['data'])
+        $response->assertJsonStructure(['data','links','meta'])
             ->assertJson(fn(AssertableJson $json) => $json
                 ->whereAllType([
                     'data.0.id' => 'integer',
-                    'data.0.nome' => 'string'
+                    'data.0.nome' => 'string',
+                    'links'=>'array',
+                    'meta'=>'array'
                 ]));   //ASSERT
     }
 
