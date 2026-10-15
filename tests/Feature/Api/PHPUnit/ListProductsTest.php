@@ -34,6 +34,7 @@ class ListProductsTest extends TestCase
 
         $response->assertStatus(200);   //ASSERT
         $response->assertJsonIsObject();   //ASSERT
+        $response->assertJsonStructure(['data']);   //ASSERT
     }
 
 }
