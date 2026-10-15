@@ -20,7 +20,7 @@ class ModelProdutoTest extends TestCase
         ];
 
         //ACT
-        $result = Produto::factory()->create($protudoTest);
+        $result = Produto::create($protudoTest);
 
         //ASSERT
         $this->assertIsObject($result);
