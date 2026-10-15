@@ -24,5 +24,13 @@ class ModelProdutoTest extends TestCase
 
         //ASSERT
         $this->assertIsObject($result);
+        $this->assertArrayIsEqualToArrayIgnoringListOfKeys(
+            $protudoTest,
+            $result->toArray(),
+            [
+                'updated_at',
+                'created_at',
+                'id'
+            ]);
     }
 }
