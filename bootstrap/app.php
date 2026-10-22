@@ -15,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
-        $middleware->api(append:ForceJsonResponse::class);
+        $middleware->api(prepend:[ForceJsonResponse::class]);
         // dd($middleware->getMiddlewareGroups());
         $middleware->statefulApi();
     })
