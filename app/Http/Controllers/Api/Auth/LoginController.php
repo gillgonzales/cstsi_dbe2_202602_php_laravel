@@ -38,4 +38,15 @@ class LoginController extends Controller
     public function user(Request $request){
         return $request->user();
     }
+
+     public function logout(Request $request)
+    {
+        $user =  Auth::guard('web')->user();
+        if (!$user)
+            return response()->json(["message" => "Não autenticado!"], 401);
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return response()->json(["message" => "Sessão encerrada!!!"]);
+    }
 }
