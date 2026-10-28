@@ -47,14 +47,17 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $auth_user = $request->user();
-        if ($auth_user->id === $user->id)
+        try{
+            if ($auth_user->id != $user->id)
+                throw new Exception("Não tem permissão para modificar o recurso!!");
             return [$user, $request->user()];
-        else
-            return $this->errorHandler(
+        }catch(Exception $error){
+             return $this->errorHandler(
                 "Não autorizado!!!",
-                new Exception("Não tem permissão para modificar o recurso!!"),
+                $error,
                 403
             );
+        }
     }
 
     /**
