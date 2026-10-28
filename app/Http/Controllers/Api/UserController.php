@@ -25,10 +25,10 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-        try{
+        try {
             return new UserResource(User::create($request->validated()))
-                ->additional(['message'=>"Usuário criado com sucesso!!!"]);
-        }catch(Exception $error){
+                ->additional(['message' => "Usuário criado com sucesso!!!"]);
+        } catch (Exception $error) {
             return $this->errorHandler("Erro ao cadastrar novo user.", $error);
         }
     }
@@ -46,7 +46,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        return [$user, $request->user()];
+        $auth_user = $request->user();
+        if ($auth_user->id === $user->id)
+            return [$user, $request->user()];
+        else
+            return $this->errorHandler(
+                "Não autorizado!!!",
+                new Exception("Não tem permissão para modificar o recurso!!"),
+                403
+            );
     }
 
     /**
