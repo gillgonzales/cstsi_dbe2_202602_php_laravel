@@ -29,7 +29,8 @@ class ProdutoPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->is_admin;
+        // return false;
     }
 
     /**
@@ -43,9 +44,10 @@ class ProdutoPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Produto $produto): bool
+    public function delete(User $user): bool
     {
-        return false;
+        // dd($user);
+        return $user->is_admin;
     }
 
     /**
