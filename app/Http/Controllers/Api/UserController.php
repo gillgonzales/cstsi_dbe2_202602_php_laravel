@@ -9,6 +9,7 @@ use App\Http\Resources\UserResourceCollection;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -65,6 +66,8 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
+        if(!Gate::allows('delete-user',$user))
+            return response()->json(['msg'=>'Não autorizado!!!'],403);
         return [$user, $request->user()];
     }
 }
