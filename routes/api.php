@@ -28,7 +28,9 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('fornecedores', FornecedorController::class)
         ->parameters([
             'fornecedores' => 'fornecedor'
-        ]);
+        ])
+        ->middleware(['auth:sanctum','ability:is_admin']);
+
     Route::apiResource('users', UserController::class);
 
     Route::apiResource('users', UserController::class)
