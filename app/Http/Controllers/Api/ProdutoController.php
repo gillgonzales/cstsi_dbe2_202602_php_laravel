@@ -10,7 +10,11 @@ use App\Http\Resources\ProdutoResourceCollection;
 use App\Http\Resources\ProdutoStoredResource;
 use App\Http\Resources\ProdutoUpdatedResource;
 use App\Models\Produto;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
 class ProdutoController extends Controller
@@ -67,9 +71,16 @@ class ProdutoController extends Controller
     public function destroy(Produto $produto)
     {
         try{
+            Gate::authorize('delete',Produto::class);
+            // if(!Auth::user()->can('delete',Produto::class))
+            //     throw new Exception("Não autorizado !!!");
+            // if(!Gate::allows('delete',Produto::class))
+            //     throw new AuthorizationException("Não autorizado !!!");
             $produto->delete();
             return new ProdutoResource($produto)
                     ->additional(['message'=>"Produto removido!!!"]);
+        }catch(AuthorizationException $error){
+            return $this->errorHandler("Não possui permissão.",$error,403);
         }catch (\Exception $error) {
             return $this->errorHandler("Não foi possível remover o Produto!!! Tente mais tarde.",$error);
         }
