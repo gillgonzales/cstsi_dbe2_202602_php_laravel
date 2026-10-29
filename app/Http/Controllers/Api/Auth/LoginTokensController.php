@@ -14,7 +14,10 @@ class LoginTokensController extends LoginController
         try {
             $credentials = $request->validated();
             $user = $this->authenticate($credentials);
-            $token = $user->createToken($user->email)->plainTextToken;
+            $ability = [];
+            if($user->is_admin)
+                $ability = ['is_admin'];
+            $token = $user->createToken($user->email,$ability)->plainTextToken;
             return new UserResource($user)
                 ->additional([
                     "message" => "Logado via tokens!!!",
