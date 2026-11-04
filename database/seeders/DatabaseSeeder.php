@@ -35,7 +35,8 @@ class DatabaseSeeder extends Seeder
         Fornecedor::factory(10)->create();
 
         $this->call([
-            RegiaoSeeder::class
+            RegiaoSeeder::class,
+            EstadoSeeder::class
             ]);
     }
 }
