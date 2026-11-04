@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Sleep;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +29,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('delete-user',function(User $user, User $model) {
             return $user->id === $model->id || $user->is_admin;
         });
+
+        // Sleep::sleep(2);
+        // new Sleep(1)->seconds();
+
     }
 }

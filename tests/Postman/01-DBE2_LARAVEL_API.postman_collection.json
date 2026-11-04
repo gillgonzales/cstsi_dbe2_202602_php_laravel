@@ -43,16 +43,16 @@
               {
                 "key": "Accept",
                 "value": "application/json",
-                "type": "text",
                 "disabled": true
               }
             ],
             "url": {
-              "raw": "{{BASE_URL}}api/v1/produtos/filter/?nome=expli",
+              "raw": "{{BASE_URL}}/api/v1/produtos/filter/?nome=expli",
               "host": [
-                "{{BASE_URL}}api"
+                "{{BASE_URL}}"
               ],
               "path": [
+                "api",
                 "v1",
                 "produtos",
                 "filter",
@@ -72,13 +72,11 @@
                 {
                   "key": "max",
                   "value": "20000",
-                  "type": "text",
                   "disabled": true
                 },
                 {
                   "key": "min",
                   "value": "10",
-                  "type": "text",
                   "disabled": true
                 },
                 {
@@ -119,11 +117,12 @@
               }
             },
             "url": {
-              "raw": "{{BASE_URL}}api/v1/produtos/",
+              "raw": "{{BASE_URL}}/api/v1/produtos/",
               "host": [
-                "{{BASE_URL}}api"
+                "{{BASE_URL}}"
               ],
               "path": [
+                "api",
                 "v1",
                 "produtos",
                 ""
@@ -138,25 +137,10 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "console.log(pm.response.json().data.id)",
-                  "const {data} = pm.response.json()",
-                  "pm.collectionVariables.set('PRODUTO_ID',data?.id);"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
                 "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                  "console.log(pm.response.json().data.id)\nconst {data} = pm.response.json()\npm.collectionVariables.set('PRODUTO_ID',data?.id);"
+                ]
               }
             }
           ],
@@ -182,7 +166,8 @@
               },
               {
                 "key": "Origin",
-                "value": "http://localhost:8082"
+                "value": "http://localhost:8082",
+                "disabled": true
               }
             ],
             "body": {
@@ -234,14 +219,10 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "console.log(pm.response.json().data.id)",
-                  "const {data} = pm.response.json()",
-                  "pm.collectionVariables.set('PRODUTO_ID',data?.id);"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "console.log(pm.response.json().data.id)\nconst {data} = pm.response.json()\npm.collectionVariables.set('PRODUTO_ID',data?.id);"
+                ]
               }
             }
           ],
@@ -256,7 +237,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{TOKEN_ADMIN}}",
+                  "value": "{{TOKEN_USER}}",
                   "type": "string"
                 }
               ]
@@ -265,19 +246,16 @@
             "header": [
               {
                 "key": "Accept",
-                "value": "application/json",
-                "type": "text"
+                "value": "application/json"
               },
               {
                 "key": "X-XSRF-TOKEN",
                 "value": "{{XSRF-TOKEN}}",
-                "type": "text",
                 "disabled": true
               },
               {
                 "key": "Referer",
                 "value": "{{BASE_URL}}",
-                "type": "text",
                 "disabled": true
               }
             ],
@@ -307,24 +285,24 @@
                 {
                   "key": "fornecedor_id",
                   "value": "1",
-                  "type": "text"
+                  "type": "text",
+                  "disabled": true
                 },
                 {
                   "key": "imagem",
                   "type": "file",
-                  "uuid": "e295030c-664f-4afb-a515-ae851a04ae5c",
                   "src": "/home/gillgonzales/Pictures/placa-de-video-rx-7600-gaming-oc-8g-radeon-gigabyte-8gb-gddr6-128bits-rgb-gv-r76gaming-oc-8gd_1698435450_m.webp"
                 }
               ]
             },
             "url": {
-              "raw": "{{BASE_URL}}api/v1/token/produtos",
+              "raw": "{{BASE_URL}}/api/v1/produtos",
               "host": [
-                "{{BASE_URL}}api"
+                "{{BASE_URL}}"
               ],
               "path": [
+                "api",
                 "v1",
-                "token",
                 "produtos"
               ]
             }
@@ -471,19 +449,16 @@
             "header": [
               {
                 "key": "Accept",
-                "value": "application/json",
-                "type": "text"
+                "value": "application/json"
               },
               {
                 "key": "Referer",
                 "value": "{{BASE_URL}}",
-                "type": "text",
                 "disabled": true
               },
               {
                 "key": "X-XSRF-TOKEN",
-                "value": "{{XSRF-TOKEN}}",
-                "type": "text"
+                "value": "{{XSRF-TOKEN}}"
               }
             ],
             "body": {
@@ -491,36 +466,29 @@
               "urlencoded": [
                 {
                   "key": "nome",
-                  "value": "{{$randomProductName}}",
-                  "type": "text",
-                  "uuid": "4f66523e-1756-446c-b800-67755b829beb"
+                  "value": "{{$randomProductName}}"
                 },
                 {
                   "key": "descricao",
-                  "value": "{{$randomPhrase}}",
-                  "type": "text",
-                  "uuid": "87b05a41-2270-4f42-8df9-93c7a3dc1687"
+                  "value": "{{$randomPhrase}}"
                 },
                 {
                   "key": "qtd_estoque",
-                  "value": "{{$randomInt}}",
-                  "type": "text",
-                  "uuid": "0e9a425c-621c-4c69-9c99-ae9a0307df3b"
+                  "value": "{{$randomInt}}"
                 },
                 {
                   "key": "preco",
-                  "value": "{{$randomPrice}}",
-                  "type": "text",
-                  "uuid": "f4ef2f47-5073-467e-9848-0441781f3abb"
+                  "value": "{{$randomPrice}}"
                 }
               ]
             },
             "url": {
-              "raw": "{{BASE_URL}}api/v1/produtos/:id",
+              "raw": "{{BASE_URL}}/api/v1/produtos/:id",
               "host": [
-                "{{BASE_URL}}api"
+                "{{BASE_URL}}"
               ],
               "path": [
+                "api",
                 "v1",
                 "produtos",
                 ":id"
@@ -550,18 +518,15 @@
             "header": [
               {
                 "key": "Accept",
-                "value": "application/json",
-                "type": "text"
+                "value": "application/json"
               },
               {
                 "key": "Referer",
-                "value": "{{BASE_URL}}",
-                "type": "text"
+                "value": "{{BASE_URL}}"
               },
               {
                 "key": "X-XSRF-TOKEN",
-                "value": "{{XSRF-TOKEN}}",
-                "type": "text"
+                "value": "{{XSRF-TOKEN}}"
               }
             ],
             "body": {
@@ -569,36 +534,29 @@
               "urlencoded": [
                 {
                   "key": "nome",
-                  "value": "{{$randomProductName}}",
-                  "type": "text",
-                  "uuid": "4f66523e-1756-446c-b800-67755b829beb"
+                  "value": "{{$randomProductName}}"
                 },
                 {
                   "key": "descricao",
-                  "value": "{{$randomPhrase}}",
-                  "type": "text",
-                  "uuid": "87b05a41-2270-4f42-8df9-93c7a3dc1687"
+                  "value": "{{$randomPhrase}}"
                 },
                 {
                   "key": "qtd_estoque",
-                  "value": "{{$randomInt}}",
-                  "type": "text",
-                  "uuid": "0e9a425c-621c-4c69-9c99-ae9a0307df3b"
+                  "value": "{{$randomInt}}"
                 },
                 {
                   "key": "preco",
-                  "value": "{{$randomPrice}}",
-                  "type": "text",
-                  "uuid": "f4ef2f47-5073-467e-9848-0441781f3abb"
+                  "value": "{{$randomPrice}}"
                 }
               ]
             },
             "url": {
-              "raw": "{{BASE_URL}}api/v1/produtos/:id",
+              "raw": "{{BASE_URL}}/api/v1/produtos/:id",
               "host": [
-                "{{BASE_URL}}api"
+                "{{BASE_URL}}"
               ],
               "path": [
+                "api",
                 "v1",
                 "produtos",
                 ":id"
@@ -621,20 +579,30 @@
         {
           "name": "INDEX",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN_ADMIN}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
                 "key": "Accept",
-                "value": "application/json",
-                "type": "text"
+                "value": "application/json"
               }
             ],
             "url": {
-              "raw": "{{BASE_URL}}api/v1/fornecedores",
+              "raw": "{{BASE_URL}}/api/v1/fornecedores",
               "host": [
-                "{{BASE_URL}}api"
+                "{{BASE_URL}}"
               ],
               "path": [
+                "api",
                 "v1",
                 "fornecedores"
               ]
@@ -695,8 +663,7 @@
             "header": [
               {
                 "key": "Referer",
-                "value": "http://localhost",
-                "type": "text"
+                "value": "http://localhost"
               }
             ],
             "body": {
@@ -717,7 +684,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "2"
+                  "value": "4"
                 }
               ]
             }
@@ -791,18 +758,15 @@
             "header": [
               {
                 "key": "Referer",
-                "value": "http://localhost:8000",
-                "type": "text"
+                "value": "{{BASE_URL}}"
               },
               {
                 "key": "X-XSRF-TOKEN",
-                "value": "{{XSRF-TOKEN}}",
-                "type": "text"
+                "value": "{{XSRF-TOKEN}}"
               },
               {
                 "key": "Accept",
                 "value": "application/json",
-                "type": "text",
                 "disabled": true
               }
             ],
@@ -824,7 +788,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "4"
+                  "value": "11"
                 }
               ]
             }
@@ -904,18 +868,15 @@
             "header": [
               {
                 "key": "X-XSRF-TOKEN",
-                "value": "{{XSRF-TOKEN}}",
-                "type": "text"
+                "value": "{{XSRF-TOKEN}}"
               },
               {
                 "key": "Referer",
-                "value": "{{BASE_URL}}",
-                "type": "text"
+                "value": "{{BASE_URL}}"
               },
               {
                 "key": "Origin",
-                "value": "{{BASE_URL}}",
-                "type": "text"
+                "value": "{{BASE_URL}}"
               }
             ],
             "body": {
@@ -923,27 +884,19 @@
               "urlencoded": [
                 {
                   "key": "name",
-                  "value": "Gill",
-                  "type": "text",
-                  "uuid": "07a69850-a05f-4389-a4df-16927f31a95d"
+                  "value": "Gill"
                 },
                 {
                   "key": "password",
-                  "value": "admin123",
-                  "type": "text",
-                  "uuid": "dd4e569f-9527-43fb-bb8d-8576a8454a02"
+                  "value": "admin123"
                 },
                 {
                   "key": "email",
-                  "value": "gillgonzales@gmail.com",
-                  "type": "text",
-                  "uuid": "f135e668-3704-4cf9-9dad-78fe37b8e621"
+                  "value": "gillgonzales@gmail.com"
                 },
                 {
                   "key": "surname",
-                  "value": "Gonzales",
-                  "type": "text",
-                  "uuid": "bf194227-00ed-4cc8-9c8e-2e48e71fddb2"
+                  "value": "Gonzales"
                 }
               ]
             },
@@ -961,7 +914,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "4"
+                  "value": "8"
                 }
               ]
             }
@@ -982,14 +935,10 @@
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "const {token}  = pm.response.json()",
-                      "console.log(token);",
-                      "pm.collectionVariables.set('TOKEN',token)"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                    "exec": [
+                      "const {token}  = pm.response.json()\nconsole.log(token);\npm.collectionVariables.set('TOKEN_USER',token)"
+                    ]
                   }
                 }
               ],
@@ -1002,7 +951,6 @@
                   {
                     "key": "X-XSRF-TOKEN",
                     "value": "",
-                    "type": "text",
                     "disabled": true
                   }
                 ],
@@ -1011,21 +959,15 @@
                   "urlencoded": [
                     {
                       "key": "password",
-                      "value": "password",
-                      "type": "text",
-                      "uuid": "dd4e569f-9527-43fb-bb8d-8576a8454a02"
+                      "value": "password"
                     },
                     {
                       "key": "email",
-                      "value": "Rosendo.Toy@yahoo.com",
-                      "type": "text",
-                      "uuid": "f135e668-3704-4cf9-9dad-78fe37b8e621"
+                      "value": "demarco.erdman@example.com"
                     },
                     {
                       "key": "email",
                       "value": "Clark_Tremblay@yahoo.com",
-                      "type": "text",
-                      "uuid": "bf26a390-8824-4879-a73c-81d960485a5b",
                       "disabled": true
                     }
                   ]
@@ -1051,14 +993,10 @@
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "const {token}  = pm.response.json()",
-                      "console.log(token);",
-                      "pm.collectionVariables.set('TOKEN_ADMIN',token)"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                    "exec": [
+                      "const {token}  = pm.response.json()\nconsole.log(token);\npm.collectionVariables.set('TOKEN_ADMIN',token)"
+                    ]
                   }
                 }
               ],
@@ -1071,13 +1009,11 @@
                   {
                     "key": "X-XSRF-TOKEN",
                     "value": "",
-                    "type": "text",
                     "disabled": true
                   },
                   {
                     "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   }
                 ],
                 "body": {
@@ -1086,40 +1022,32 @@
                     {
                       "key": "name",
                       "value": "Gill",
-                      "type": "text",
-                      "uuid": "07a69850-a05f-4389-a4df-16927f31a95d",
                       "disabled": true
                     },
                     {
                       "key": "password",
-                      "value": "password",
-                      "type": "text",
-                      "uuid": "dd4e569f-9527-43fb-bb8d-8576a8454a02"
+                      "value": "password"
                     },
                     {
                       "key": "email",
-                      "value": "admin@example.com",
-                      "type": "text",
-                      "uuid": "f135e668-3704-4cf9-9dad-78fe37b8e621"
+                      "value": "admin@example.com"
                     },
                     {
                       "key": "surname",
                       "value": "Gonzales",
-                      "type": "text",
-                      "uuid": "bf194227-00ed-4cc8-9c8e-2e48e71fddb2",
                       "disabled": true
                     }
                   ]
                 },
                 "url": {
-                  "raw": "{{BASE_URL}}/api/v1/token/login",
+                  "raw": "{{BASE_URL}}/api/v1/tokens/login",
                   "host": [
                     "{{BASE_URL}}"
                   ],
                   "path": [
                     "api",
                     "v1",
-                    "token",
+                    "tokens",
                     "login"
                   ]
                 }
@@ -1445,43 +1373,12 @@
               "name": "Login",
               "event": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
                   "listen": "prerequest",
                   "script": {
-                    "exec": [
-                      "let base_url =  pm.collectionVariables.get('LOCAL_URL')",
-                      "pm.collectionVariables.set('XSRF-TOKEN',null)",
-                      "pm.sendRequest(`${base_url}/sanctum/csrf-cookie`, (err, res) => {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        const { headers } = res",
-                      "        console.log(headers)",
-                      "        const [xsrf_cookie] = headers.filter(h => h.key == 'Set-Cookie' && h.value.includes('XSRF'))",
-                      "        console.log(xsrf_cookie)",
-                      "        console.log(xsrf_cookie?.value)",
-                      "",
-                      "        const [xsrf_cookie_options] = xsrf_cookie?.value.split(';');",
-                      "        const xsrf_token = xsrf_cookie_options.replace('%3D', '').replace('XSRF-TOKEN=', '')",
-                      "        xsrf_token && pm.collectionVariables.set(\"XSRF-TOKEN\", xsrf_token);",
-                      "",
-                      "        xsrf_token && console.log(xsrf_token)",
-                      "    }",
-                      "});"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                    "exec": [
+                      "let base_url =  pm.collectionVariables.get('LOCAL_URL')\npm.collectionVariables.set('XSRF-TOKEN',null)\npm.sendRequest(`${base_url}/sanctum/csrf-cookie`, (err, res) => {\n    if (err) {\n        console.log(err);\n    } else {\n        const { headers } = res\n        console.log(headers)\n        const [xsrf_cookie] = headers.filter(h => h.key == 'Set-Cookie' && h.value.includes('XSRF'))\n        console.log(xsrf_cookie)\n        console.log(xsrf_cookie?.value)\n\n        const [xsrf_cookie_options] = xsrf_cookie?.value.split(';');\n        const xsrf_token = xsrf_cookie_options.replace('%3D', '').replace('XSRF-TOKEN=', '')\n        xsrf_token && pm.collectionVariables.set(\"XSRF-TOKEN\", xsrf_token);\n\n        xsrf_token && console.log(xsrf_token)\n    }\n});"
+                    ]
                   }
                 }
               ],
@@ -1493,13 +1390,16 @@
                 "header": [
                   {
                     "key": "X-XSRF-TOKEN",
-                    "value": "{{XSRF-TOKEN}}",
-                    "type": "text"
+                    "value": "{{XSRF-TOKEN}}"
                   },
                   {
                     "key": "Origin",
                     "value": "{{BASE_URL}}",
-                    "type": "text"
+                    "disabled": true
+                  },
+                  {
+                    "key": "Referer",
+                    "value": "{{BASE_URL}}"
                   }
                 ],
                 "body": {
@@ -1507,21 +1407,20 @@
                   "urlencoded": [
                     {
                       "key": "password",
-                      "value": "password",
-                      "type": "text",
-                      "uuid": "dd4e569f-9527-43fb-bb8d-8576a8454a02"
+                      "value": "password"
                     },
                     {
                       "key": "email",
-                      "value": "Clark_Tremblay@yahoo.com",
-                      "type": "text",
-                      "uuid": "f135e668-3704-4cf9-9dad-78fe37b8e621"
+                      "value": "test@example.com"
                     },
                     {
                       "key": "email",
-                      "value": "test@example.com",
-                      "type": "text",
-                      "uuid": "d375228a-60bb-4ee6-93ac-0675dcfa9f58",
+                      "value": "Grayce.Reynolds28@yahoo.com",
+                      "disabled": true
+                    },
+                    {
+                      "key": "email",
+                      "value": "Kayla.Jacobson@hotmail.com",
                       "disabled": true
                     }
                   ]
@@ -1634,32 +1533,10 @@
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "const cookieJar = pm.cookies.jar();",
-                      "cookieJar.get(pm.collectionVariables.get(\"LOCAL_URL\"), 'laravel-session', (error, cookieValue) => {",
-                      "    console.log(cookieValue)",
-                      "    console.log(pm.collectionVariables.get(\"LOCAL_URL\"))",
-                      "    if (cookieValue) {",
-                      "        pm.collectionVariables.set(\"COOKIE\", cookieValue);",
-                      "    }else if (error) {",
-                      "        console.error(\"Erro ao ler laravel-session:\", error);",
-                      "    }",
-                      "});"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
                     "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                      "const cookieJar = pm.cookies.jar();\ncookieJar.get(pm.collectionVariables.get(\"LOCAL_URL\"), 'laravel-session', (error, cookieValue) => {\n    console.log(cookieValue)\n    console.log(pm.collectionVariables.get(\"LOCAL_URL\"))\n    if (cookieValue) {\n        pm.collectionVariables.set(\"COOKIE\", cookieValue);\n    }else if (error) {\n        console.error(\"Erro ao ler laravel-session:\", error);\n    }\n});"
+                    ]
                   }
                 }
               ],
@@ -1671,30 +1548,25 @@
                 "header": [
                   {
                     "key": "X-XSRF-TOKEN",
-                    "value": "{{XSRF-TOKEN}}",
-                    "type": "text"
+                    "value": "{{XSRF-TOKEN}}"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json",
-                    "type": "text",
                     "disabled": true
                   },
                   {
                     "key": "Origin",
-                    "value": "http://localhost:8082",
-                    "type": "text"
+                    "value": "{{BASE_URL}}"
                   },
                   {
                     "key": "Cookie",
                     "value": "laravel-session={{COOKIE}}",
-                    "type": "text",
                     "disabled": true
                   },
                   {
                     "key": "Referer",
                     "value": "http://localhost:8082",
-                    "type": "text",
                     "disabled": true
                   }
                 ],
@@ -1703,13 +1575,11 @@
                   "urlencoded": [
                     {
                       "key": "password",
-                      "value": "password",
-                      "type": "text"
+                      "value": "password"
                     },
                     {
                       "key": "email",
-                      "value": "admin@example.com",
-                      "type": "text"
+                      "value": "admin@example.com"
                     }
                   ]
                 },
@@ -1731,43 +1601,12 @@
               "name": "Login Manager",
               "event": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
                   "listen": "prerequest",
                   "script": {
-                    "exec": [
-                      "let base_url =  pm.collectionVariables.get('BASE_URL')",
-                      "pm.collectionVariables.set('XSRF-TOKEN',null)",
-                      "pm.sendRequest(`${base_url}sanctum/csrf-cookie`, (err, res) => {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        const { headers } = res",
-                      "        console.log(headers)",
-                      "        const [xsrf_cookie] = headers.filter(h => h.key == 'Set-Cookie' && h.value.includes('XSRF'))",
-                      "        console.log(xsrf_cookie)",
-                      "        console.log(xsrf_cookie?.value)",
-                      "",
-                      "        const [xsrf_cookie_options] = xsrf_cookie?.value.split(';');",
-                      "        const xsrf_token = xsrf_cookie_options.replace('%3D', '').replace('XSRF-TOKEN=', '')",
-                      "        xsrf_token && pm.collectionVariables.set(\"XSRF-TOKEN\", xsrf_token);",
-                      "",
-                      "        xsrf_token && console.log(xsrf_token)",
-                      "    }",
-                      "});"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                    "exec": [
+                      "// let url =  pm.collectionVariables.get('LOCAL_URL')\n// pm.collectionVariables.set('XSRF-TOKEN',null)\n// pm.sendRequest(`${url}/sanctum/csrf-cookie`, (err, res) => {\n//     if (err) {\n//         console.log(err);\n//     } else {\n//         const { headers } = res\n//         console.log(headers)\n//         const [xsrf_cookie] = headers.filter(h => h.key == 'Set-Cookie' && h.value.includes('XSRF'))\n//         console.log(xsrf_cookie)\n//         console.log(xsrf_cookie?.value)\n\n//         const [xsrf_cookie_options] = xsrf_cookie?.value.split(';');\n//         const xsrf_token = xsrf_cookie_options.replace('%3D', '').replace('XSRF-TOKEN=', '')\n//         xsrf_token && pm.collectionVariables.set(\"XSRF-TOKEN\", xsrf_token);\n\n//         xsrf_token && console.log(xsrf_token)\n//     }\n// });"
+                    ]
                   }
                 }
               ],
@@ -1779,8 +1618,11 @@
                 "header": [
                   {
                     "key": "X-XSRF-TOKEN",
-                    "value": "{{XSRF-TOKEN}}",
-                    "type": "text"
+                    "value": "{{XSRF-TOKEN}}"
+                  },
+                  {
+                    "key": "Origin",
+                    "value": "{{BASE_URL}}"
                   }
                 ],
                 "body": {
@@ -1789,31 +1631,23 @@
                     {
                       "key": "name",
                       "value": "Gill",
-                      "type": "text",
-                      "uuid": "07a69850-a05f-4389-a4df-16927f31a95d",
                       "disabled": true
                     },
                     {
                       "key": "password",
-                      "value": "password",
-                      "type": "text",
-                      "uuid": "dd4e569f-9527-43fb-bb8d-8576a8454a02"
+                      "value": "password"
                     },
                     {
                       "key": "email",
-                      "value": "manager@example.com",
-                      "type": "text",
-                      "uuid": "f135e668-3704-4cf9-9dad-78fe37b8e621"
+                      "value": "demarco.erdman@example.com"
                     }
                   ]
                 },
                 "url": {
-                  "raw": "http://localhost:8082/api/v1/login",
-                  "protocol": "http",
+                  "raw": "{{BASE_URL}}/api/v1/login",
                   "host": [
-                    "localhost"
+                    "{{BASE_URL}}"
                   ],
-                  "port": "8082",
                   "path": [
                     "api",
                     "v1",
@@ -1832,41 +1666,28 @@
     {
       "listen": "prerequest",
       "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
         "exec": [
-          "// let base_url =  pm.collectionVariables.get('LOCAL_URL')",
-          "// pm.collectionVariables.set('XSRF-TOKEN',null)",
-          "// pm.sendRequest(`${base_url}/sanctum/csrf-cookie`, (err, res) => {",
-          "//     if (err) {",
-          "//         console.log(err);",
-          "//     } else {",
-          "//         const { headers } = res",
-          "//         console.log(headers)",
-          "//         const [xsrf_cookie] = headers.filter(h => h.key == 'Set-Cookie' && h.value.includes('XSRF'))",
-          "//         console.log(xsrf_cookie)",
-          "//         console.log(xsrf_cookie?.value)",
+          "let base_url =  pm.collectionVariables.get('LOCAL_URL')",
+          "pm.collectionVariables.set('XSRF-TOKEN',null)",
+          "pm.sendRequest(`${base_url}/sanctum/csrf-cookie`, (err, res) => {",
+          "    if (err) {",
+          "        console.log(err);",
+          "    } else {",
+          "        const { headers } = res",
+          "        console.log(headers)",
+          "        const [xsrf_cookie] = headers.filter(h => h.key == 'Set-Cookie' && h.value.includes('XSRF'))",
+          "        console.log(xsrf_cookie)",
+          "        console.log(xsrf_cookie?.value)",
           "",
-          "//         const [xsrf_cookie_options] = xsrf_cookie?.value.split(';');",
-          "//         const xsrf_token = xsrf_cookie_options.replace('%3D', '').replace('XSRF-TOKEN=', '')",
-          "//         xsrf_token && pm.collectionVariables.set(\"XSRF-TOKEN\", xsrf_token);",
+          "        const [xsrf_cookie_options] = xsrf_cookie?.value.split(';');",
+          "        const xsrf_token = xsrf_cookie_options.replace('%3D', '').replace('XSRF-TOKEN=', '')",
+          "        xsrf_token && pm.collectionVariables.set(\"XSRF-TOKEN\", xsrf_token);",
           "",
-          "//         xsrf_token && console.log(xsrf_token)",
-          "//     }",
-          "// });"
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [
-          ""
-        ]
+          "        xsrf_token && console.log(xsrf_token)",
+          "    }",
+          "});"
+        ],
+        "type": "text/javascript"
       }
     }
   ],
@@ -1910,6 +1731,10 @@
     },
     {
       "key": "COOKIE",
+      "value": ""
+    },
+    {
+      "key": "TOKEN_USER",
       "value": ""
     }
   ]
