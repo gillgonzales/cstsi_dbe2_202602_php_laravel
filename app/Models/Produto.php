@@ -16,4 +16,8 @@ class Produto extends Model
         'preco',
         'importado'
     ];
+
+    public function fornecedor(){
+        return $this->belongsTo(Fornecedor::class);
+    }
 }
