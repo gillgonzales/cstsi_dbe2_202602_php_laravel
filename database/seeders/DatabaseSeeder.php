@@ -33,5 +33,9 @@ class DatabaseSeeder extends Seeder
 
         Produto::factory(10)->create();
         Fornecedor::factory(10)->create();
+
+        $this->call([
+            RegiaoSeeder::class
+            ]);
     }
 }
