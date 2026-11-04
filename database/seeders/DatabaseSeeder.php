@@ -32,11 +32,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Produto::factory(10)->create();
-        Fornecedor::factory(10)->create();
 
         $this->call([
             RegiaoSeeder::class,
-            EstadoSeeder::class
+            EstadoSeeder::class,
+            FornecedorSeeder::class
             ]);
     }
 }
