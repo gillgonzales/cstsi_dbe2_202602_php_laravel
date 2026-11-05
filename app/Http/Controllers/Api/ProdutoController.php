@@ -28,7 +28,8 @@ class ProdutoController extends Controller
         if ($request->has('perPage'))
             $perPage = $request->perPage;
         $produtos = Produto::paginate(perPage: $perPage, page: $request->page)
-            ->appends(['perPage' => $request->perPage]);
+            ->appends(['perPage' => $request->perPage])
+            ->load('fornecedor');
         return new ProdutoResourceCollection($produtos);
     }
 
