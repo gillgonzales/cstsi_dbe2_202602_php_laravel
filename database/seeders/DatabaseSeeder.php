@@ -24,14 +24,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'is_admin'=>true
         ]);
-
-        Produto::factory(10)->create();
 
         $this->call([
             RegiaoSeeder::class,
