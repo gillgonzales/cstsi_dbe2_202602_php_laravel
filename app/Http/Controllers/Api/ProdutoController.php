@@ -50,7 +50,7 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-        return new ProdutoResource($produto);
+        return new ProdutoResource($produto->load('fornecedor'));
     }
 
     /**
