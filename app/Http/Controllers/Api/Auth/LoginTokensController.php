@@ -24,7 +24,7 @@ class LoginTokensController extends LoginController
                     "token"=>$token
                     ]);
         } catch (Exception $error) {
-            $this->errorHandler("Erro ao efetuar o login!!!", $error);
+            $this->errorHandler("Erro ao efetuar o login!!!", $error,401);
         }
     }
 }
