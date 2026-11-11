@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Produto extends Model
 {
@@ -18,11 +20,11 @@ class Produto extends Model
         'fornecedor_id'
     ];
 
-    public function fornecedor(){
+    public function fornecedor() : BelongsTo{
         return $this->belongsTo(Fornecedor::class);
     }
 
-    public function promocoes()
+    public function promocoes() : BelongsToMany
     {
         return $this->belongsToMany(Promocao::class);
     }

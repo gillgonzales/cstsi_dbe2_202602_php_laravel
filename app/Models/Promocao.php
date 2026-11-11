@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Promocao extends Model
 {
@@ -14,7 +15,7 @@ class Promocao extends Model
         'desconto'
     ];
 
-    public function produtos()
+    public function produtos() : BelongsToMany
     {
         return $this->belongsToMany(Produto::class);
     }
