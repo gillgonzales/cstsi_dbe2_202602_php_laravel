@@ -86,4 +86,18 @@ class ProdutoController extends Controller
             return $this->errorHandler("Não foi possível remover o Produto!!! Tente mais tarde.",$error);
         }
     }
+
+    public function filter() : ?ProdutoResourceCollection {
+
+        $filteredProdutos = Produto::where('importado',1)
+         		->whereBetween('preco',[10,2000])
+         		->whereHas('fornecedor',
+         			fn($q)=>
+         				$q->whereHas('estado',fn($q)=>
+         						$q->whereHas('regiao',
+         							fn($q)=>$q->where('nome','like','%ce%'))))
+         		->get();
+
+        return new ProdutoResourceCollection($filteredProdutos);
+    }
 }
