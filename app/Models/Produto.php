@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProdutoRelationsScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,26 +23,39 @@ class Produto extends Model
         'fornecedor_id'
     ];
 
-    public function fornecedor() : BelongsTo{
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdutoRelationsScope);
+    }
+
+    public function scopePorRegiao(Builder $query, string $nome)
+    {
+        $query->whereHas('regiao',fn($q)=>$q->where('nome','like',"%$nome%"));
+    }
+
+    public function fornecedor(): BelongsTo
+    {
         return $this->belongsTo(Fornecedor::class);
     }
 
-    public function promocoes() : BelongsToMany
+    public function promocoes(): BelongsToMany
     {
-        return $this->belongsToMany(Promocao::class);
+        return $this->belongsToMany(Promocao::class)
+            ->withPivot('desconto')
+            ->withTimestamps();
     }
 
-     public function regiao() : BelongsToThrough{
+    public function regiao(): BelongsToThrough
+    {
         return $this->belongsToThrough(
             Regiao::class,
             [
                 Estado::class,
                 Fornecedor::class
             ],
-            foreignKeyLookup:
-            [
-                Regiao::class=>'regiao_id',
-                Fornecedor::class=>'fornecedor_id'
+            foreignKeyLookup: [
+                Regiao::class => 'regiao_id',
+                Fornecedor::class => 'fornecedor_id'
             ]
         );
     }
