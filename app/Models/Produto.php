@@ -30,7 +30,7 @@ class Produto extends Model
 
     public function scopePorRegiao(Builder $query, string $nome)
     {
-        $query->whereHas('regiao',fn($q)=>$q->where('nome','like',"%$nome%"));
+        $query->whereHas('regiao',fn($q)=>$q->where('regioes.nome','like',"%$nome%"));
     }
 
     public function fornecedor(): BelongsTo
