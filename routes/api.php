@@ -15,7 +15,8 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
 
-    Route::get('produtos/filter', [ProdutoController::class, 'filter']);
+    // Route::get('produtos/filter', [ProdutoController::class, 'filter']);
+    Route::query('produtos/filter', [ProdutoController::class, 'filter']);
 
     Route::apiResource('produtos', ProdutoController::class)
         ->middleware('auth:sanctum');
