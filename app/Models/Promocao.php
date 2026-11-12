@@ -17,6 +17,8 @@ class Promocao extends Model
 
     public function produtos() : BelongsToMany
     {
-        return $this->belongsToMany(Produto::class);
+        return $this->belongsToMany(Produto::class)
+                    ->withPivot('desconto')
+                    ->withTimestamps();
     }
 }
