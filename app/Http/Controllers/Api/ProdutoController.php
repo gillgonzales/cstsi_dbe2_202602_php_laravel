@@ -88,14 +88,33 @@ class ProdutoController extends Controller
 
     public function filter(Request $request) : ?ProdutoResourceCollection {
 
-        $queryBuilderFilter = Produto::whereBetween('preco',[10,2000])
-         		->porRegiao('ce');
+        $queryBuilderFilter = Produto::query();
 
-        if($request->has('importado'))
-            $queryBuilderFilter->importado($request->importado);
+        try {
+            $importado = $request->has('importado') ? $request->importado : 0;
+            $min = $request->has('min') ? $request->min : 1;
+            $max = $request->has('max') ? $request->max : 99999;
+
+            if ($request->has('nome'))
+                $queryBuilderFilter->where('nome','like',"%$request->nome%");
+
+            if ($request->hasAny(['min', 'max']))
+               $queryBuilderFilter->whereBetween('preco', [$min, $max]);
+
+            if ($request->has('regiao'))
+                $queryBuilderFilter->porRegiao($request->regiao);
+
+            if ($request->has('importado'))
+                 $queryBuilderFilter->importados($importado);
 
 
-        $filteredProdutos = $queryBuilderFilter->get();
-        return new ProdutoResourceCollection($filteredProdutos);
+            $filteredProducts =  $queryBuilderFilter->get();
+
+            return new ProdutoResourceCollection($filteredProducts)
+                ->additional(['total' => $filteredProducts->count()]);
+
+        } catch (\Exception $error) {
+            return $this->errorHandler("Erro ao filtrar produtos!!!", $error);
+        }
     }
 }
