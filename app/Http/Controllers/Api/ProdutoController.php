@@ -28,8 +28,7 @@ class ProdutoController extends Controller
         if ($request->has('perPage'))
             $perPage = $request->perPage;
         $produtos = Produto::paginate(perPage: $perPage, page: $request->page)
-            ->appends(['perPage' => $request->perPage])
-            ->load('fornecedor');
+            ->appends(['perPage' => $request->perPage]);
         return new ProdutoResourceCollection($produtos);
     }
 
@@ -50,7 +49,7 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-        return new ProdutoResource($produto->load('fornecedor'));
+        return new ProdutoResource($produto);
     }
 
     /**
@@ -90,10 +89,8 @@ class ProdutoController extends Controller
     public function filter(Request $request) : ?ProdutoResourceCollection {
 
         $queryBuilderFilter = Produto::whereBetween('preco',[10,2000])
-         		->whereHas('fornecedor',
-         			fn($q)=>$q->whereHas('estado',
-                        fn($q)=>$q->whereHas('regiao',
-         					fn($q)=>$q->where('nome','like','%ce%'))));
+         		->whereHas('regiao',
+         			fn($q)=>$q->where('nome','like','%ce%'));
         if($request->has('importado'))
             $queryBuilderFilter->where('importado',$request->importado);
 
