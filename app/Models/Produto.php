@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdutoRelationsScope;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,12 @@ class Produto extends Model
     public function scopePorRegiao(Builder $query, string $nome)
     {
         $query->whereHas('regiao',fn($q)=>$q->where('regioes.nome','like',"%$nome%"));
+    }
+
+    #[Scope]
+    public function importados(Builder $query, bool $importado = true)
+    {
+        $query->where('importado', $importado);
     }
 
     public function fornecedor(): BelongsTo
