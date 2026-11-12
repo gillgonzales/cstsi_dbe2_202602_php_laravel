@@ -87,17 +87,17 @@ class ProdutoController extends Controller
         }
     }
 
-    public function filter() : ?ProdutoResourceCollection {
+    public function filter(Request $request) : ?ProdutoResourceCollection {
 
-        $filteredProdutos = Produto::where('importado',1)
-         		->whereBetween('preco',[10,2000])
+        $queryBuilderFilter = Produto::whereBetween('preco',[10,2000])
          		->whereHas('fornecedor',
-         			fn($q)=>
-         				$q->whereHas('estado',fn($q)=>
-         						$q->whereHas('regiao',
-         							fn($q)=>$q->where('nome','like','%ce%'))))
-         		->get();
+         			fn($q)=>$q->whereHas('estado',
+                        fn($q)=>$q->whereHas('regiao',
+         					fn($q)=>$q->where('nome','like','%ce%'))));
+        if($request->has('importado'))
+            $queryBuilderFilter->where('importado',$request->importado);
 
+        $filteredProdutos = $queryBuilderFilter->get();
         return new ProdutoResourceCollection($filteredProdutos);
     }
 }
