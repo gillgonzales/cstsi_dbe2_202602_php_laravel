@@ -89,8 +89,7 @@ class ProdutoController extends Controller
     public function filter(Request $request) : ?ProdutoResourceCollection {
 
         $queryBuilderFilter = Produto::whereBetween('preco',[10,2000])
-         		->whereHas('regiao',
-         			fn($q)=>$q->where('regioes.nome','like','%ce%'));
+         		->porRegiao('ce');
 
         if($request->has('importado'))
             $queryBuilderFilter->where('importado',$request->importado);
