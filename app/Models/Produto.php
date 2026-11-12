@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Scopes\ProdutoRelationsScope;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Znck\Eloquent\Relations\BelongsToThrough;
 
+#[ScopedBy([ProdutoRelationsScope::class])]
 class Produto extends Model
 {
     use HasFactory, \Znck\Eloquent\Traits\BelongsToThrough;
@@ -24,12 +26,18 @@ class Produto extends Model
         'fornecedor_id'
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new ProdutoRelationsScope);
-    }
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new ProdutoRelationsScope);
+    // }
 
-    public function scopePorRegiao(Builder $query, string $nome)
+    // public function scopePorRegiao(Builder $query, string $nome)
+    // {
+    //     $query->whereHas('regiao',fn($q)=>$q->where('regioes.nome','like',"%$nome%"));
+    // }
+
+    #[Scope]
+     public function porRegiao(Builder $query, string $nome)
     {
         $query->whereHas('regiao',fn($q)=>$q->where('regioes.nome','like',"%$nome%"));
     }
