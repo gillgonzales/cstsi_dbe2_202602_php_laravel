@@ -92,7 +92,7 @@ class ProdutoController extends Controller
          		->porRegiao('ce');
 
         if($request->has('importado'))
-            $queryBuilderFilter->where('importado',$request->importado);
+            $queryBuilderFilter->importado($request->importado);
 
 
         $filteredProdutos = $queryBuilderFilter->get();
