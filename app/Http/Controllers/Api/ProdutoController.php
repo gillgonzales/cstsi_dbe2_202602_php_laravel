@@ -22,7 +22,7 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request):ProdutoResourceCollection
     {
         $perPage = 5;
         if ($request->has('perPage'))
@@ -35,7 +35,7 @@ class ProdutoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProdutoStoreRequest $request)
+    public function store(ProdutoStoreRequest $request):?ProdutoStoredResource
     {
         try {
             return new ProdutoStoredResource(Produto::create($request->validated()));
@@ -47,7 +47,7 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Produto $produto)
+    public function show(Produto $produto):?ProdutoResource
     {
         return new ProdutoResource($produto);
     }
@@ -55,7 +55,7 @@ class ProdutoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProdutoUpdateRequest $request, Produto $produto)
+    public function update(ProdutoUpdateRequest $request, Produto $produto):?ProdutoUpdatedResource
     {
         try {
             $produto->update($request->validated());
@@ -68,7 +68,7 @@ class ProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produto $produto)
+    public function destroy(Produto $produto) :?ProdutoResource
     {
         try{
             Gate::authorize('delete',Produto::class);
