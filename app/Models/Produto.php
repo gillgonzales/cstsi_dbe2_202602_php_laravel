@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Znck\Eloquent\Relations\BelongsToThrough;
 
 #[ScopedBy([ProdutoRelationsScope::class])]
@@ -73,5 +74,10 @@ class Produto extends Model
                 Fornecedor::class => 'fornecedor_id'
             ]
         );
+    }
+
+    public function medias():MorphMany
+    {
+        return $this->morphMany(Media::class,'mediable');
     }
 }
