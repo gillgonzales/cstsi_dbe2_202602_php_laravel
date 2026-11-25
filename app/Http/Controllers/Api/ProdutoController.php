@@ -95,16 +95,16 @@ class ProdutoController extends Controller
             $min = $request->has('min') ? $request->min : 1;
             $max = $request->has('max') ? $request->max : 99999;
 
-            if ($request->has('nome'))
+            if ($request->filled('nome'))
                 $queryBuilderFilter->where('nome','like',"%$request->nome%");
 
-            if ($request->hasAny(['min', 'max']))
+            if ($request->anyFilled(['min', 'max']))
                $queryBuilderFilter->whereBetween('preco', [$min, $max]);
 
-            if ($request->has('regiao'))
+            if ($request->filled('regiao'))
                 $queryBuilderFilter->porRegiao($request->regiao);
 
-            if ($request->has('importado'))
+            if ($request->filled('importado'))
                  $queryBuilderFilter->importados($importado);
 
 
