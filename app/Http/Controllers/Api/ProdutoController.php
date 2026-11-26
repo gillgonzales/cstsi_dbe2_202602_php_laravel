@@ -9,16 +9,19 @@ use App\Http\Resources\ProdutoResource;
 use App\Http\Resources\ProdutoResourceCollection;
 use App\Http\Resources\ProdutoStoredResource;
 use App\Http\Resources\ProdutoUpdatedResource;
+use App\Interfaces\RepositoryInterface;
 use App\Models\Produto;
-use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\ValidationException;
 
 class ProdutoController extends Controller
 {
+
+    public function __construct(
+        protected RepositoryInterface $repository
+    ){}
+
     /**
      * Display a listing of the resource.
      */
@@ -88,28 +91,8 @@ class ProdutoController extends Controller
 
     public function filter(Request $request) : ?ProdutoResourceCollection {
 
-        $queryBuilderFilter = Produto::query();
-
         try {
-            $importado = $request->has('importado') ? $request->importado : 0;
-            $min = $request->has('min') ? $request->min : 1;
-            $max = $request->has('max') ? $request->max : 99999;
-
-            if ($request->filled('nome'))
-                $queryBuilderFilter->where('nome','like',"%$request->nome%");
-
-            if ($request->anyFilled(['min', 'max']))
-               $queryBuilderFilter->whereBetween('preco', [$min, $max]);
-
-            if ($request->filled('regiao'))
-                $queryBuilderFilter->porRegiao($request->regiao);
-
-            if ($request->filled('importado'))
-                 $queryBuilderFilter->importados($importado);
-
-
-            $filteredProducts =  $queryBuilderFilter->get();
-
+            $filteredProducts = $this->repository->filter($request);
             return new ProdutoResourceCollection($filteredProducts)
                 ->additional(['total' => $filteredProducts->count()]);
 
