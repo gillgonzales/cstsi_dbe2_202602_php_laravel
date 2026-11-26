@@ -4,8 +4,10 @@ namespace App\Repositories;
 
 use App\Models\Produto;
 use App\Interfaces\RepositoryInterface;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoRepository implements RepositoryInterface
 {
@@ -21,14 +23,22 @@ class ProdutoRepository implements RepositoryInterface
 
     public function create(array $data): ?Produto
     {
-        if (!isset($data['imagem']))
-            return Produto::create($data);
+        try {
+            DB::beginTransaction();
+            if (!isset($data['imagem']))
+                return Produto::create($data);
 
-        $novoProduto = Produto::create($data);
-        $novoProduto->medias()->create([
-            'source' => $data['imagem']
-        ]);
-        return $novoProduto;
+            $novoProduto = Produto::create($data);
+            $novoProduto->medias()->create([
+                'source' => $data['imagem']
+            ]);
+            return $novoProduto->load('medias');
+        } catch (Exception $error) {
+            DB::rollBack();
+            throw $error;
+        } finally {
+            DB::commit();
+        }
     }
 
     public function filter(Request $request): ?Collection
