@@ -68,6 +68,7 @@ class UserController extends Controller
     {
         if(!Gate::allows('delete-user',$user))
             return response()->json(['msg'=>'Não autorizado!!!'],403);
+        $user->delete();
         return [$user, $request->user()];
     }
 }
