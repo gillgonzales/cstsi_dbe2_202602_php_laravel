@@ -34,7 +34,7 @@ class ProdutoStoreRequest extends FormRequest
                 'preco' => "required | numeric | min:1.99",
                 'importado' => "nullable | boolean",
                 'fornecedor_id' => "required | integer",
-                'imagem' => 'nullable | file'
+                'imagem' => 'nullable | image'
         ];
     }
 
