@@ -47,7 +47,7 @@
               }
             ],
             "url": {
-              "raw": "{{BASE_URL}}/api/v1/produtos/filter/?nome=expli",
+              "raw": "{{BASE_URL}}/api/v1/produtos/filter?importado=1",
               "host": [
                 "{{BASE_URL}}"
               ],
@@ -55,18 +55,12 @@
                 "api",
                 "v1",
                 "produtos",
-                "filter",
-                ""
+                "filter"
               ],
               "query": [
                 {
                   "key": "regiao",
                   "value": "Sul",
-                  "disabled": true
-                },
-                {
-                  "key": "importado",
-                  "value": "0",
                   "disabled": true
                 },
                 {
@@ -80,8 +74,8 @@
                   "disabled": true
                 },
                 {
-                  "key": "nome",
-                  "value": "expli"
+                  "key": "importado",
+                  "value": "1"
                 }
               ]
             }
@@ -96,7 +90,7 @@
             }
           },
           "request": {
-            "method": "QUERY",
+            "method": "POST",
             "header": [
               {
                 "key": "Accept",
@@ -109,7 +103,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "//regiao:Sul\n//importado:0\n//max:20000\n//min:10\n//\"nome\":\"expli\"\n{\n    // \"_method\":\"query\",\n    \"min\":50,\n    // \"max\":20000\n    \"importado\":1,\n    \"regiao\":\"Sul\"\n    // \"nome\":\"expli\"\n}",
+              "raw": "//regiao:Sul\n//importado:0\n//max:20000\n//min:10\n//\"nome\":\"expli\"\n{\n    \"_method\":\"query\",\n    // \"min\":10,\n    // \"max\":20000\n    // \"importado\":0,\n    \"regiao\":\"norte\"\n    // \"nome\":\"expli\",\n    // \"descricao\":\"expli\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -126,6 +120,48 @@
                 "v1",
                 "produtos",
                 ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "filter Query",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "X-HTTP-Method-Override",
+                "value": "QUERY"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "//regiao:Sul\n//importado:0\n//max:20000\n//min:10\n//\"nome\":\"expli\"\n{\n    \"_method\":\"query\",\n    // \"min\":10,\n    // \"max\":20000\n    // \"importado\":0,\n    \"regiao\":\"Sul\"\n    // \"nome\":\"expli\",\n    // \"descricao\":\"expli\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/produtos",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "produtos"
               ]
             }
           },
@@ -171,33 +207,13 @@
               }
             ],
             "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "key": "nome",
-                  "value": "{{$randomProductName}}"
-                },
-                {
-                  "key": "descricao",
-                  "value": "{{$randomPhrase}}"
-                },
-                {
-                  "key": "qtd_estoque",
-                  "value": "{{$randomInt}}"
-                },
-                {
-                  "key": "preco",
-                  "value": "{{$randomPrice}}"
-                },
-                {
-                  "key": "fornecedor_id",
-                  "value": "1"
-                },
-                {
-                  "key": "importado",
-                  "value": "1"
+              "mode": "raw",
+              "raw": "{\n    \"nome\":\"{{$randomProductName}}\",\n    \"descricao\":\"{{$randomPhrase}}\",\n    \"qtd_estoque\":\"{{$randomInt}}\",\n    \"preco\":\"{{$randomPrice}}\",\n    \"fornecedor_id\":1,\n    \"importado\":1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
                 }
-              ]
+              }
             },
             "url": {
               "raw": "{{BASE_URL}}/api/v1/produtos",
@@ -214,7 +230,7 @@
           "response": []
         },
         {
-          "name": "store token",
+          "name": "store upload token",
           "event": [
             {
               "listen": "test",
@@ -292,6 +308,94 @@
                   "key": "imagem",
                   "type": "file",
                   "src": "/home/gillgonzales/Pictures/placa-de-video-rx-7600-gaming-oc-8g-radeon-gigabyte-8gb-gddr6-128bits-rgb-gv-r76gaming-oc-8gd_1698435450_m.webp"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/produtos",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "produtos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "store upload cookies",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "console.log(pm.response.json().data.id)\nconst {data} = pm.response.json()\npm.collectionVariables.set('PRODUTO_ID',data?.id);"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{XSRF-TOKEN}}"
+              },
+              {
+                "key": "Referer",
+                "value": "{{BASE_URL}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "nome",
+                  "value": "{{$randomProductName}}",
+                  "type": "text"
+                },
+                {
+                  "key": "descricao",
+                  "value": "{{$randomPhrase}}",
+                  "type": "text"
+                },
+                {
+                  "key": "qtd_estoque",
+                  "value": "{{$randomInt}}",
+                  "type": "text"
+                },
+                {
+                  "key": "preco",
+                  "value": "{{$randomPrice}}",
+                  "type": "text"
+                },
+                {
+                  "key": "fornecedor_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "imagem",
+                  "type": "file",
+                  "src": [
+                    "/home/gillgonzales/Pictures/gpus/placa-de-video-topo-de-linha.svg"
+                  ]
                 }
               ]
             },
@@ -580,20 +684,17 @@
           "name": "INDEX",
           "request": {
             "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{TOKEN_ADMIN}}",
-                  "type": "string"
-                }
-              ]
+              "type": "noauth"
             },
             "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "{{BASE_URL}}"
               }
             ],
             "url": {
@@ -788,7 +889,7 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "11"
+                  "value": "7"
                 }
               ]
             }
@@ -963,7 +1064,7 @@
                     },
                     {
                       "key": "email",
-                      "value": "demarco.erdman@example.com"
+                      "value": "test@example.com"
                     },
                     {
                       "key": "email",
@@ -1143,7 +1244,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{TOKEN}}",
+                      "value": "{{TOKEN_USER}}",
                       "type": "string"
                     }
                   ]
@@ -1153,13 +1254,11 @@
                   {
                     "key": "Referer",
                     "value": "http://localhost",
-                    "type": "text",
                     "disabled": true
                   },
                   {
                     "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
+                    "value": "application/json"
                   }
                 ],
                 "body": {
