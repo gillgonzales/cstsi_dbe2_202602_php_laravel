@@ -13,6 +13,6 @@ class ProdutoRelationsScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-         $builder->with('fornecedor')->orderBy('id','desc');
+         $builder->with('fornecedor', 'medias')->orderBy('id','desc');
     }
 }
